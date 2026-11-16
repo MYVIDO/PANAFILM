@@ -12,6 +12,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -70,6 +72,8 @@ body {
   object-fit: contain;
 }
 
+.screen.custom video { cursor: pointer; }
+
 .screen video p { padding: 1rem; }
 
 .notice {
@@ -77,6 +81,104 @@ body {
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--brass-dim);
   color: var(--ivory);
+}
+
+/* Custom controls */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* The timeline reads left to right, like the browser's own player. */
+.seekrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  direction: ltr;
+}
+
+.seek {
+  flex: 1;
+  min-width: 0;
+  height: 2.25rem;
+  margin: 0;
+  accent-color: var(--brass);
+}
+
+.time {
+  min-width: 3rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn {
+  min-width: 3.5rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.9rem;
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--ivory);
+  background: transparent;
+  border: 1px solid var(--brass-dim);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn:hover { border-color: var(--brass); }
+
+.btn[aria-pressed="true"] {
+  color: var(--velvet-deep);
+  background: var(--brass);
+  border-color: var(--brass);
+}
+
+.btn-primary {
+  min-width: 8rem;
+  font-weight: 700;
+  color: var(--velvet-deep);
+  background: var(--brass);
+  border-color: var(--brass);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.volume {
+  width: 6rem;
+  margin: 0;
+  accent-color: var(--brass);
+}
+
+/* Fullscreen keeps the controls visible */
+.screen:fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 0;
+  background: var(--screen);
+}
+
+.screen:fullscreen video {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
 }
 
 a {
@@ -87,7 +189,10 @@ a {
 a:hover { color: var(--ivory); }
 
 a:focus-visible,
-video:focus-visible {
+video:focus-visible,
+.btn:focus-visible,
+.seek:focus-visible,
+.volume:focus-visible {
   outline: 3px solid var(--ivory);
   outline-offset: 3px;
 }
@@ -103,8 +208,13 @@ video:focus-visible {
 
 .colophon p { margin: 0; }
 
+@media (max-width: 40rem) {
+  .volume { display: none; }
+}
+
 @media (max-width: 30rem) {
   body { font-size: 1.125rem; }
   .page { padding: 1rem 0.75rem 2rem; }
   .masthead { margin-bottom: 1.5rem; }
+  .btn { padding: 0.25rem 0.7rem; }
 }
