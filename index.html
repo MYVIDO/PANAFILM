@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#2a0a12">
+  <meta name="theme-color" content="#0e1f1a">
   <title>PANAFILM | معرض الفيديو والصور</title>
   <meta name="description" content="معرض PANAFILM: فيديوهات وصور تُضاف تلقائياً من مستودع GitHub.">
   <meta http-equiv="Content-Security-Policy"
@@ -12,25 +12,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="curtain" aria-hidden="true"><i></i><i></i></div>
+  <a class="skip" href="#grid">انتقل إلى المعرض</a>
 
-  <header class="marquee">
+  <header class="hero">
     <h1>PANAFILM</h1>
     <p>معرض الفيديو والصور</p>
-    <div class="tabs" role="group" aria-label="تصفية المعرض">
-      <button type="button" class="tab" data-filter="all" aria-pressed="true">الكل</button>
-      <button type="button" class="tab" data-filter="video" aria-pressed="false">فيديو</button>
-      <button type="button" class="tab" data-filter="image" aria-pressed="false">صور</button>
-    </div>
   </header>
 
+  <nav class="bar" aria-label="تصفية المعرض">
+    <div class="tabs" role="group" aria-label="نوع المحتوى">
+      <button type="button" class="tab" data-filter="all" aria-pressed="true">الكل <span class="n"></span></button>
+      <button type="button" class="tab" data-filter="video" aria-pressed="false">فيديو <span class="n"></span></button>
+      <button type="button" class="tab" data-filter="image" aria-pressed="false">صور <span class="n"></span></button>
+    </div>
+  </nav>
+
   <main>
-    <p id="status" role="status">جارٍ تحميل المعرض…</p>
+    <p id="status" role="status" hidden>جارٍ تحميل المعرض…</p>
     <section id="grid" class="grid" aria-label="المعرض"></section>
   </main>
 
   <footer class="colophon">
-    <p>&copy; <span id="year">2026</span> <bdi>PANAFILM</bdi></p>
+    <p><bdi>PANAFILM</bdi> &copy; <span id="year">2026</span></p>
   </footer>
 
   <dialog id="viewer" aria-label="عارض الوسائط">

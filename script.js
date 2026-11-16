@@ -98,23 +98,10 @@
     }
     media.addEventListener("error", () => { item.broken = true; b.hidden = true; });
 
-    b.append(media, el("span", "badge", item.kind === "video" ? "فيديو" : "صورة"), el("span", "cap", item.label));
-    if (item.kind === "video") b.append(el("span", "play"));
-
-    if (matchMedia("(hover: hover)").matches) {
-      b.addEventListener("pointermove", (e) => {
-        const r = b.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        b.style.setProperty("--mx", x * 100 + "%");
-        b.style.setProperty("--my", y * 100 + "%");
-        b.style.setProperty("--ry", (x - 0.5) * 10 + "deg");
-        b.style.setProperty("--rx", (0.5 - y) * 10 + "deg");
-      });
-      b.addEventListener("pointerleave", () => {
-        b.style.removeProperty("--rx");
-        b.style.removeProperty("--ry");
-      });
-    }
+    const frame = el("span", "frame");
+    frame.append(media, el("span", "badge", item.kind === "video" ? "فيديو" : "صورة"));
+    if (item.kind === "video") frame.append(el("span", "play"));
+    b.append(frame, el("span", "cap", item.label));
 
     b.addEventListener("click", () => open(item));
     io ? io.observe(b) : b.classList.add("in");
@@ -123,6 +110,11 @@
 
   function render() {
     const shown = list();
+    document.querySelectorAll(".tab").forEach((t) => {
+      const n = t.querySelector(".n");
+      const f = t.dataset.filter;
+      if (n) n.textContent = items.filter((i) => !i.broken && (f === "all" || i.kind === f)).length;
+    });
     grid.replaceChildren(...shown.map(card));
     status.hidden = shown.length > 0;
     if (!shown.length) {
@@ -255,9 +247,15 @@
 
   $("year").textContent = String(new Date().getFullYear());
 
+  grid.setAttribute("aria-busy", "true");
+  grid.replaceChildren(...Array.from({ length: 6 }, () => el("span", "skeleton")));
+
   loadPaths()
     .then((paths) => { items = paths.map(toItem).sort(byNewest); render(); })
     .catch(() => {
+      grid.replaceChildren();
       status.textContent = "تعذّر تحميل المعرض من GitHub (ربما بلغت حدّ الطلبات). أعد المحاولة بعد قليل.";
-    });
+      status.hidden = false;
+    })
+    .finally(() => grid.removeAttribute("aria-busy"));
 })();
