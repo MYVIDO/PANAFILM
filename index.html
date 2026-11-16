@@ -3,65 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PANAFILM | مشاهدة الفيديو</title>
-  <meta name="description" content="موقع PANAFILM لمشاهدة الفيديو.">
+  <meta name="theme-color" content="#2a0a12">
+  <title>PANAFILM | معرض الفيديو والصور</title>
+  <meta name="description" content="معرض PANAFILM: فيديوهات وصور تُضاف تلقائياً من مستودع GitHub.">
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self' https://github.com https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'">
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://raw.githubusercontent.com; media-src 'self' https://raw.githubusercontent.com; connect-src https://api.github.com; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="page">
-    <header class="masthead">
-      <h1>PANAFILM</h1>
-      <p class="tagline">مشاهدة الفيديو</p>
-    </header>
+  <div class="curtain" aria-hidden="true"><i></i><i></i></div>
 
-    <main>
-      <figure class="screen" id="screen">
-        <!-- بدون JavaScript تبقى أزرار المتصفح الافتراضية (controls) -->
-        <video id="player" controls preload="auto" playsinline>
-          <!-- 1) نسخة محلية: تعمل عند رفع الموقع في نفس المستودع (GitHub Pages) -->
-          <source src="VID_20261116_131256_610.mp4" type="video/mp4">
-          <!-- 2) رابط GitHub المباشر كاحتياط -->
-          <source src="https://github.com/MYVIDO/PANAFILM/raw/refs/heads/main/VID_20261116_131256_610.mp4" type="video/mp4">
-          <p>متصفحك لا يدعم تشغيل الفيديو.
-            <a href="https://github.com/MYVIDO/PANAFILM/raw/refs/heads/main/VID_20261116_131256_610.mp4"
-               rel="noopener noreferrer">افتح الفيديو في صفحة مستقلة</a>.
-          </p>
-        </video>
+  <header class="marquee">
+    <h1>PANAFILM</h1>
+    <p>معرض الفيديو والصور</p>
+    <div class="tabs" role="group" aria-label="تصفية المعرض">
+      <button type="button" class="tab" data-filter="all" aria-pressed="true">الكل</button>
+      <button type="button" class="tab" data-filter="video" aria-pressed="false">فيديو</button>
+      <button type="button" class="tab" data-filter="image" aria-pressed="false">صور</button>
+    </div>
+  </header>
 
-        <!-- أزرار التحكم المخصصة: تظهر عبر script.js فقط -->
-        <div class="controls" id="controls" hidden>
-          <div class="seekrow">
-            <span class="time" id="time-current">0:00</span>
-            <input class="seek" id="seek" type="range" min="0" max="1000" step="1" value="0"
-                   aria-label="شريط التقدّم في الفيديو">
-            <span class="time" id="time-total">0:00</span>
-          </div>
-          <div class="buttons">
-            <button type="button" class="btn" id="btn-back" aria-label="رجوع 10 ثوانٍ">&minus;10 ث</button>
-            <button type="button" class="btn btn-primary" id="btn-play">تشغيل</button>
-            <button type="button" class="btn" id="btn-forward" aria-label="تقديم 10 ثوانٍ">+10 ث</button>
-            <button type="button" class="btn" id="btn-speed" aria-label="سرعة التشغيل 1">1&times;</button>
-            <button type="button" class="btn" id="btn-mute" aria-pressed="false">كتم</button>
-            <input class="volume" id="volume" type="range" min="0" max="1" step="0.05" value="1"
-                   aria-label="مستوى الصوت">
-            <button type="button" class="btn" id="btn-loop" aria-pressed="false">تكرار</button>
-            <button type="button" class="btn" id="btn-fullscreen">ملء الشاشة</button>
-          </div>
-        </div>
+  <main>
+    <p id="status" role="status">جارٍ تحميل المعرض…</p>
+    <section id="grid" class="grid" aria-label="المعرض"></section>
+  </main>
 
-        <p id="player-message" class="notice" role="alert" hidden>
-          تعذّر تحميل الفيديو. تأكد من اتصالك بالإنترنت ثم أعد تحميل الصفحة.
-        </p>
-      </figure>
-    </main>
+  <footer class="colophon">
+    <p>&copy; <span id="year">2026</span> <bdi>PANAFILM</bdi></p>
+  </footer>
 
-    <footer class="colophon">
-      <p>&copy; <span id="year">2026</span> <bdi>PANAFILM</bdi></p>
-    </footer>
-  </div>
+  <dialog id="viewer" aria-label="عارض الوسائط">
+    <div class="vbar">
+      <button type="button" class="btn" id="v-close">إغلاق</button>
+      <span id="v-title"></span>
+      <span class="vnav">
+        <button type="button" class="btn" id="v-prev">السابق</button>
+        <button type="button" class="btn" id="v-next">التالي</button>
+      </span>
+    </div>
+    <div class="stage" id="stage"></div>
+  </dialog>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
