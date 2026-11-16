@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PANAFILM | مشاهدة الفيديو</title>
+  <meta name="description" content="موقع PANAFILM لمشاهدة الفيديو.">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self' https://github.com https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <h1>PANAFILM</h1>
+      <p class="tagline">مشاهدة الفيديو</p>
+    </header>
+
+    <main>
+      <figure class="screen">
+        <video id="player" controls preload="metadata" playsinline>
+          <!-- 1) نسخة محلية: تعمل عند رفع الموقع في نفس المستودع (GitHub Pages) -->
+          <source src="VID_20261116_131256_610.mp4" type="video/mp4">
+          <!-- 2) رابط GitHub المباشر كاحتياط -->
+          <source src="https://github.com/MYVIDO/PANAFILM/raw/refs/heads/main/VID_20261116_131256_610.mp4" type="video/mp4">
+          <p>متصفحك لا يدعم تشغيل الفيديو.
+            <a href="https://github.com/MYVIDO/PANAFILM/raw/refs/heads/main/VID_20261116_131256_610.mp4"
+               rel="noopener noreferrer">افتح الفيديو في صفحة مستقلة</a>.
+          </p>
+        </video>
+        <p id="player-message" class="notice" role="alert" hidden>
+          تعذّر تحميل الفيديو. تأكد من اتصالك بالإنترنت ثم أعد تحميل الصفحة.
+        </p>
+      </figure>
+    </main>
+
+    <footer class="colophon">
+      <p>&copy; <span id="year">2026</span> <bdi>PANAFILM</bdi></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+:root {
+  --velvet: #3b0f1a;
+  --velvet-deep: #2a0a12;
+  --brass: #c9a24d;
+  --brass-dim: #8f7233;
+  --ivory: #f2e8d5;
+  --screen: #000;
+
+  --font: "Traditional Arabic", "Noto Naskh Arabic", "Geeza Pro", "Amiri",
+          Georgia, "Times New Roman", serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--velvet);
+  color: var(--ivory);
+  font-family: var(--font);
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.page {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+/* Masthead */
+.masthead {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 4px double var(--brass);
+  border-bottom: 4px double var(--brass);
+  margin-bottom: 2.5rem;
+}
+
+.masthead h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 9vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--brass);
+}
+
+.tagline {
+  margin: 0.5rem 0 0;
+  font-size: 1.35rem;
+}
+
+/* Video frame */
+.screen {
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--velvet-deep);
+  border: 4px double var(--brass);
+}
+
+.screen video {
+  display: block;
+  width: 100%;
+  max-height: 75vh;
+  margin: 0 auto;
+  background: var(--screen);
+  object-fit: contain;
+}
+
+.screen video p { padding: 1rem; }
+
+.notice {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--brass-dim);
+  color: var(--ivory);
+}
+
+a {
+  color: var(--brass);
+  text-underline-offset: 0.2em;
+}
+
+a:hover { color: var(--ivory); }
+
+a:focus-visible,
+video:focus-visible {
+  outline: 3px solid var(--ivory);
+  outline-offset: 3px;
+}
+
+/* Footer */
+.colophon {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--brass-dim);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.colophon p { margin: 0; }
+
+@media (max-width: 30rem) {
+  body { font-size: 1.125rem; }
+  .page { padding: 1rem 0.75rem 2rem; }
+  .masthead { margin-bottom: 1.5rem; }
+}
